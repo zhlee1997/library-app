@@ -1,5 +1,49 @@
 const { DataTypes } = require("sequelize");
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *    CreateBookDto:
+ *      type: object
+ *      properties:
+ *        title:
+ *          type: string
+ *          default: An amazing book
+ *        author:
+ *          type: string
+ *          default: Jane Doe
+ *      required:
+ *        - title
+ *        - author
+ *    UpdateBookDto:
+ *      type: object
+ *      properties:
+ *        title:
+ *          type: string
+ *          default: An amazing book
+ *        author:
+ *          type: string
+ *          default: Jane Doe
+ *      required:
+ *
+ *    BookDto:
+ *      type: object
+ *      properties:
+ *        id:
+ *          type: string
+ *        title:
+ *          type: string
+ *        author:
+ *          type: string
+ *        createdAt:
+ *          type: string
+ *          format: string
+ *        updatedAt:
+ *          type: string
+ *          format: date
+ */
+
 const bookModel = (db) => {
   return db.define("Book", {
     id: {
