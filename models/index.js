@@ -1,5 +1,7 @@
 const { Sequelize, DataTypes, Op } = require("sequelize");
 const { bookModel } = require("./book.model");
+const { userModel } = require("./user.model");
+const { postModel } = require("./post.model");
 
 const db = new Sequelize({
   dialect: "mysql",
@@ -11,5 +13,8 @@ const db = new Sequelize({
 });
 
 const Book = bookModel(db);
+
+userModel(db).hasMany(postModel(db), { foreignKey: "creatorId" });
+postModel(db).belongsTo(userModel(db), { foreignKey: "creatorId" });
 
 module.exports = { db, Book };
