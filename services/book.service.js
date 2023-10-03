@@ -15,8 +15,11 @@ const findManyBooks = (searchParam) => {
   return Book.findAll({ where: { ...searchParam } });
 };
 
-const findBookById = (id) => {
-  return Book.findByPk(id);
+const findBookById = async (id) => {
+  const book = await Book.findByPk(id);
+  if (!book) throw new Error("Book with specified id does not exist");
+
+  return book;
 };
 
 const findOneBook = (searchParam) => {
@@ -25,6 +28,8 @@ const findOneBook = (searchParam) => {
 
 const findBookByIdAndUpdate = async (id, body) => {
   const book = await findBookById(id);
+  if (!book) throw new Error("Book with specified id does not exist");
+
   for (const key of Object.keys(body)) {
     book[key] = body[key] ?? book[key];
   }
@@ -35,7 +40,8 @@ const findBookByIdAndUpdate = async (id, body) => {
 
 const findBookByIdAndDelete = async (id) => {
   const book = await findBookById(id);
-  await book.detroy();
+  if (!book) throw new Error("Book with specified id does not exist");
+  await book.destroy();
   return book;
 };
 
